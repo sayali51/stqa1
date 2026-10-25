@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}Mars Survival Estimator{% endblock %}</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <nav class="navbar">
+        <a href="{{ url_for('new_assessment') if session.get('user_id') else url_for('login') }}" class="brand">🔴 Mars Survival Estimator</a>
+        {% if session.get('user_id') %}
+            <div class="nav-links">
+                <span class="nav-user">Hi, {{ session.get('user_name') }}</span>
+                <a href="{{ url_for('new_assessment') }}">New Assessment</a>
+                <a href="{{ url_for('history') }}">History</a>
+                <a href="{{ url_for('feedback') }}">Feedback</a>
+                <a href="{{ url_for('logout') }}">Logout</a>
+            </div>
+        {% endif %}
+    </nav>
+
+    <div class="disclaimer-banner">
+        ⚠️ Academic demonstration project (OOMD/OOAD "Mars Life Prediction System" case study) — a simplified,
+        rule-based educational model for software testing practice. <strong>Not real mission-planning or life-support engineering advice.</strong>
+    </div>
+
+    <div class="container">
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                {% for category, message in messages %}
+                    <div class="flash flash-{{ category }}">{{ message }}</div>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
+
+        {% block content %}{% endblock %}
+    </div>
+</body>
+</html>

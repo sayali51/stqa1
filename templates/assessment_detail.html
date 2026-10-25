@@ -1,0 +1,96 @@
+{% extends "base.html" %}
+{% block title %}Assessment #{{ a.id }}{% endblock %}
+{% block content %}
+<h2>{{ a.mission_name }} — Results Dashboard <span class="muted">(Assessment #{{ a.id }})</span></h2>
+
+<div class="grid-2">
+    <section class="card">
+        <h3>Risk level</h3>
+        {{ gauge }}
+        <p class="risk-badge risk-{{ a.risk_category|replace(' ', '-')|lower }}">{{ a.risk_category }}</p>
+    </section>
+    <section class="card">
+        <h3>Key numbers</h3>
+        <div class="stat-row">
+            <div class="stat"><div class="num">{{ "%.1f"|format(a.survival_probability) }}%</div><div class="lbl">Survival probability</div></div>
+            <div class="stat"><div class="num">{{ "%.1f"|format(a.risk_score) }}</div><div class="lbl">Risk score / 100</div></div>
+            <div class="stat"><div class="num">{{ "%.2f"|format(a.food_ratio) }}x</div><div class="lbl">Food coverage</div></div>
+        </div>
+        <div class="bill-summary">
+            <p class="grand-total">Predicted survivable days: {{ "%.1f"|format(a.predicted_survival_days) }} of {{ a.mission_days }} planned</p>
+        </div>
+        {{ meter }}
+    </section>
+</div>
+
+<section class="card">
+    <h3>Planned mission vs predicted survivable days</h3>
+    {{ days_chart }}
+</section>
+
+<section class="card">
+    <h3>What is driving your risk score?</h3>
+    <p class="muted">Red bars raise the risk; bars show points added to the score.</p>
+    {{ factor_chart }}
+</section>
+
+<section class="card">
+    <h3>Personalised advice</h3>
+    <p class="advice-headline">{{ advice.headline }}</p>
+    <ul class="advice-list">
+        {% for item in advice["items"] %}
+        <li class="advice advice-{{ item.priority }}">
+            <span class="priority-tag">{{ item.priority|upper }} PRIORITY</span>
+            <strong>{{ item.title }}</strong>
+            <p>{{ item.text }}</p>
+        </li>
+        {% endfor %}
+    </ul>
+</section>
+
+<section class="card">
+    <h3>What if you upgraded something?</h3>
+    {% if scenarios %}
+    <p class="muted">Estimated effect of upgrading one factor at a time (and all together).</p>
+    {{ whatif_chart }}
+    <table class="cart-table">
+        <thead><tr><th>Upgrade</th><th>New score</th><th>New category</th><th>Survival</th><th>Days gained</th></tr></thead>
+        <tbody>
+        {% for s in scenarios %}
+            <tr><td>{{ s.label }}</td><td>{{ s.new_score }} ({{ s.score_change }})</td>
+                <td>{{ s.new_category }}</td><td>{{ "%.1f"|format(s.new_probability) }}%</td>
+                <td>+{{ "%.1f"|format(s.days_gained) }}</td></tr>
+        {% endfor %}
+        </tbody>
+    </table>
+    {% else %}
+    <p>Every upgrade in this model is already in place. Great planning!</p>
+    {% endif %}
+</section>
+
+<details class="card">
+    <summary><strong>Inputs you provided</strong></summary>
+    <table class="cart-table">
+        <thead><tr><th>Input</th><th>Value</th></tr></thead>
+        <tbody>
+            <tr><td>Crew size</td><td>{{ a.crew_size }}</td></tr>
+            <tr><td>Mission length</td><td>{{ a.mission_days }} days</td></tr>
+            <tr><td>Food stocked</td><td>{{ a.food_days_stock }} days</td></tr>
+            <tr><td>Water recycling</td><td>{{ a.water_recycling_percent }}%</td></tr>
+            <tr><td>Oxygen system</td><td>{{ LABELS[a.oxygen_system] }}</td></tr>
+            <tr><td>Radiation shielding</td><td>{{ LABELS[a.radiation_shielding] }}</td></tr>
+            <tr><td>Power source</td><td>{{ LABELS[a.power_source] }}</td></tr>
+            <tr><td>Medical officer</td><td>{{ "Yes" if a.medical_officer else "No" }}</td></tr>
+            <tr><td>Backup habitat</td><td>{{ "Yes" if a.backup_habitat else "No" }}</td></tr>
+        </tbody>
+    </table>
+</details>
+
+<section class="card feedback-card" id="quick-feedback">
+    <h3>Quick feedback</h3>
+    {% set assessment_id = a.id %}{% set suffix = '-q' %}
+    {% include "_feedback_form.html" %}
+</section>
+
+<p><a href="{{ url_for('history') }}">← Back to history</a></p>
+{% endblock %}

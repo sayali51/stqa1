@@ -1,0 +1,92 @@
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: 'Segoe UI', Arial, sans-serif; background: #faf5f2; color: #2b2b2b; }
+
+.navbar {
+    background: #7a2e1d;
+    color: white;
+    padding: 14px 30px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.navbar .brand { color: white; text-decoration: none; font-size: 20px; font-weight: bold; }
+.nav-links a { color: white; text-decoration: none; margin-left: 18px; font-size: 14px; }
+.nav-links a:hover { text-decoration: underline; }
+.nav-user { font-size: 14px; opacity: 0.9; margin-left: 10px; }
+
+.disclaimer-banner {
+    background: #fff3cd; color: #7a5c00; padding: 8px 20px; font-size: 12.5px;
+    text-align: center; border-bottom: 1px solid #ffe69c;
+}
+
+.container { max-width: 900px; margin: 30px auto; padding: 0 20px; }
+
+.flash { padding: 10px 16px; border-radius: 6px; margin-bottom: 16px; font-size: 14px; }
+.flash-success { background: #e6f4ea; color: #1e7d34; border: 1px solid #b7e1c1; }
+.flash-error { background: #fdeaea; color: #b3261e; border: 1px solid #f3b8b4; }
+
+.form-card {
+    background: white; padding: 24px; border-radius: 10px;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.08); max-width: 400px; margin: 20px 0;
+}
+.form-card.wide { max-width: 600px; }
+.form-card h2 { margin-bottom: 16px; }
+.form-card label { display: block; margin-top: 12px; font-size: 13px; color: #555; }
+.form-card input, .form-card select { width: 100%; padding: 8px; margin-top: 4px; border: 1px solid #ddd; border-radius: 6px; }
+.form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+.form-card button {
+    margin-top: 18px; padding: 10px 18px; background: #7a2e1d; color: white;
+    border: none; border-radius: 6px; cursor: pointer; font-size: 14px; width: 100%;
+}
+.form-card button:hover { background: #5c2216; }
+.switch-link { margin-top: 14px; font-size: 13px; }
+
+.cart-table { width: 100%; background: white; border-radius: 10px; overflow: hidden; border-collapse: collapse; box-shadow: 0 1px 4px rgba(0,0,0,0.08); margin-top: 16px;}
+.cart-table th, .cart-table td { padding: 12px 14px; text-align: left; border-bottom: 1px solid #eee; }
+.cart-table th { background: #faf5f2; font-size: 13px; color: #666; }
+
+.bill-summary { background: white; padding: 18px; border-radius: 10px; margin-top: 16px; box-shadow: 0 1px 4px rgba(0,0,0,0.08); max-width: 360px; }
+.bill-summary p { padding: 4px 0; font-size: 14px; }
+.grand-total { font-weight: bold; font-size: 16px; color: #7a2e1d; border-top: 1px solid #eee; margin-top: 8px; padding-top: 10px; }
+
+.risk-badge {
+    display: inline-block; padding: 5px 14px; border-radius: 20px; font-size: 12px;
+    font-weight: bold; margin: 8px 0;
+}
+.risk-low-risk { background: #e6f4ea; color: #1e7d34; }
+.risk-moderate-risk { background: #fff3e0; color: #b8630a; }
+.risk-high-risk { background: #fdeaea; color: #b3261e; }
+
+/* ---------- Results dashboard, charts, advice, feedback ---------- */
+.grid-2 { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 16px; }
+.card { background: #fff; border: 1px solid #d9e0ea; border-radius: 10px; padding: 16px 20px; margin: 16px 0; color: #1e2a3a; }
+.card h3 { margin-top: 0; color: #7a2e1d; }
+.chart { width: 100%; max-width: 560px; height: auto; color: #1e2a3a; display: block; margin: 8px auto; }
+.muted { color: #667; font-size: 0.9rem; }
+.advice-headline { font-weight: 600; }
+.advice-list { list-style: none; padding: 0; margin: 0; }
+.advice { border-left: 5px solid #8a94a6; background: #f6f8fb; padding: 10px 14px; margin: 10px 0; border-radius: 4px; }
+.advice p { margin: 4px 0 0; }
+.advice-high { border-left-color: #c0392b; }
+.advice-medium { border-left-color: #d98e04; }
+.advice-low { border-left-color: #2e8b57; }
+.priority-tag { display: inline-block; font-size: 0.7rem; font-weight: 700; letter-spacing: 0.05em; margin-right: 8px; color: #555; }
+.feedback-form label, .feedback-form fieldset { display: block; margin: 12px 0; border: none; padding: 0; }
+.feedback-form select, .feedback-form textarea { width: 100%; padding: 8px; margin-top: 4px; box-sizing: border-box; }
+.stars { display: flex; flex-direction: row-reverse; justify-content: flex-end; flex-wrap: wrap; }
+.stars legend { float: left; width: 100%; margin-bottom: 4px; font-weight: 600; }
+.stars input { position: absolute; opacity: 0; }
+.stars label { font-size: 2rem; color: #c5ccd8; cursor: pointer; margin: 0 2px; }
+.stars input:checked ~ label, .stars label:hover, .stars label:hover ~ label { color: #f0a500; }
+.stars input:focus-visible + label { outline: 2px solid #7a2e1d; }
+.btn { background: #7a2e1d; color: #fff; border: none; padding: 10px 20px; border-radius: 6px; cursor: pointer; font-size: 1rem; }
+.btn:hover { background: #963c27; }
+.feedback-form .stars label { display: inline-block; margin: 0 2px; }
+.feedback-form .stars { display: flex; flex-direction: row-reverse; justify-content: flex-end; }
+.form-card.wide { max-width: 680px; }
+.form-card h3.section { margin: 20px 0 4px; font-size: 15px; color: #7a2e1d; border-bottom: 1px solid #eee; padding-bottom: 4px; }
+.form-card .hint { font-size: 12px; color: #777; margin-top: 2px; }
+.stat-row { display: flex; flex-wrap: wrap; gap: 12px; margin: 8px 0; }
+.stat { flex: 1 1 140px; background: #faf5f2; border-radius: 8px; padding: 10px 14px; }
+.stat .num { font-size: 1.5rem; font-weight: 700; color: #7a2e1d; }
+.stat .lbl { font-size: 0.8rem; color: #666; }

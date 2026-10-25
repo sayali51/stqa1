@@ -1,0 +1,72 @@
+{% extends "base.html" %}
+{% block title %}New Mission Assessment{% endblock %}
+{% block content %}
+<div class="form-card wide">
+    <h2>New Mars Mission Assessment</h2>
+    <form method="POST" action="{{ url_for('new_assessment') }}">
+        <label>Mission name (optional)</label>
+        <input type="text" name="mission_name" maxlength="100" placeholder="e.g. Ares Base Alpha">
+
+        <h3 class="section">Mission</h3>
+        <div class="form-row">
+            <div>
+                <label>Crew size</label>
+                <input type="number" name="crew_size" min="1" max="100" required>
+            </div>
+            <div>
+                <label>Planned mission length (days)</label>
+                <input type="number" name="mission_days" min="1" max="1825" required>
+            </div>
+        </div>
+
+        <h3 class="section">Supplies</h3>
+        <div class="form-row">
+            <div>
+                <label>Food stocked (days of supply)</label>
+                <input type="number" name="food_days_stock" min="0" max="5000" required>
+            </div>
+            <div>
+                <label>Water recycling efficiency (%)</label>
+                <input type="number" step="0.1" name="water_recycling_percent" min="0" max="100" required>
+            </div>
+        </div>
+
+        <h3 class="section">Habitat systems</h3>
+        <label>Oxygen system</label>
+        <select name="oxygen_system">
+            <option value="isru">In-situ production (from Martian CO₂)</option>
+            <option value="stored">Stored oxygen tanks</option>
+            <option value="limited">Limited backup oxygen</option>
+        </select>
+
+        <label>Radiation shielding</label>
+        <select name="radiation_shielding">
+            <option value="regolith">Regolith cover / underground</option>
+            <option value="partial">Partial shielding</option>
+            <option value="minimal">Minimal shielding</option>
+        </select>
+
+        <label>Power source</label>
+        <select name="power_source">
+            <option value="nuclear">Nuclear reactor</option>
+            <option value="solar_battery">Solar + batteries</option>
+            <option value="solar_only">Solar only</option>
+        </select>
+
+        <h3 class="section">Readiness</h3>
+        <label>Trained medical officer on the crew?</label>
+        <select name="medical_officer">
+            <option value="yes">Yes</option>
+            <option value="no">No</option>
+        </select>
+
+        <label>Backup habitat module available?</label>
+        <select name="backup_habitat">
+            <option value="yes">Yes</option>
+            <option value="no">No</option>
+        </select>
+
+        <button type="submit">Compute Survival Assessment</button>
+    </form>
+</div>
+{% endblock %}

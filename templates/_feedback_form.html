@@ -1,0 +1,22 @@
+<form method="POST" action="{{ url_for('feedback') }}" class="feedback-form">
+    {% if assessment_id %}<input type="hidden" name="assessment_id" value="{{ assessment_id }}">{% endif %}
+    <fieldset class="stars">
+        <legend>Overall, how was the experience?</legend>
+        {% for n in [5,4,3,2,1] %}
+        <input type="radio" id="star{{ n }}{{ suffix|default('') }}" name="rating" value="{{ n }}">
+        <label for="star{{ n }}{{ suffix|default('') }}" title="{{ n }} star{{ 's' if n > 1 }}">★</label>
+        {% endfor %}
+    </fieldset>
+    <label>Was the advice helpful?
+        <select name="helpful">
+            <option value="">-- select --</option>
+            <option value="yes">Yes</option>
+            <option value="somewhat">Somewhat</option>
+            <option value="no">No</option>
+        </select>
+    </label>
+    <label>Any comments? (optional, max 500 characters)
+        <textarea name="comment" rows="3" maxlength="500"></textarea>
+    </label>
+    <button type="submit" class="btn">Send feedback</button>
+</form>
